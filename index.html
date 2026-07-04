@@ -3,294 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📅 Pawon Mbah Gito · Divisi Konten</title>
-    <!-- Font & Icons -->
+    <title>Pawon Mbah Gito · Divisi Konten</title>
+    <!-- Font & Icons (hanya untuk tombol & dekorasi) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- html2pdf (untuk export PDF) -->
+    <!-- html2pdf -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
+
         body {
-            background: linear-gradient(145deg, #f5efe6 0%, #e8dfd3 100%);
             min-height: 100vh;
             padding: 2rem 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: radial-gradient(circle at 10% 20%, #fdf0e3 0%, #f5dccb 100%);
+            animation: bgPulse 12s ease-in-out infinite alternate;
         }
+
+        @keyframes bgPulse {
+            0% { background: radial-gradient(circle at 10% 20%, #fdf0e3 0%, #f5dccb 100%); }
+            50% { background: radial-gradient(circle at 80% 40%, #f8e4d4 0%, #f0ceba 100%); }
+            100% { background: radial-gradient(circle at 30% 70%, #ffe8d6 0%, #f2cfb8 100%); }
+        }
+
+        /* ===== CARD UTAMA ===== */
         .card {
-            max-width: 1400px;
+            max-width: 1440px;
             width: 100%;
-            background: rgba(255, 250, 240, 0.75);
-            backdrop-filter: blur(4px);
-            border-radius: 2.5rem;
+            background: rgba(255, 248, 240, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 3.5rem;
             padding: 2rem 2rem 2.8rem;
-            box-shadow: 0 30px 50px rgba(60, 40, 20, 0.25), 0 10px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 235, 210, 0.6);
-            transition: all 0.2s;
+            box-shadow: 0 40px 70px rgba(100, 60, 30, 0.25), 0 10px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255, 225, 200, 0.4);
+            animation: cardFloat 6s ease-in-out infinite;
+            transition: all 0.3s;
         }
+
+        @keyframes cardFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ===== HEADER (tanpa logo/ikon) ===== */
         .header {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 2rem;
+            margin-bottom: 2.2rem;
+            background: linear-gradient(135deg, #fbeee2 0%, #f6e0cd 100%);
+            padding: 0.6rem 2rem 0.6rem 2rem;
+            border-radius: 100px;
+            border: 1px solid #ebd0ba;
+            box-shadow: 0 6px 20px rgba(150, 90, 50, 0.12), inset 0 2px 8px rgba(255, 215, 175, 0.5);
+            transition: all 0.3s;
         }
+        .header:hover {
+            box-shadow: 0 10px 28px rgba(150, 90, 50, 0.20);
+            transform: scale(1.005);
+        }
+
         .header-left {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.9rem;
         }
-        .header-left i {
-            font-size: 2.4rem;
-            color: #7b4a2e;
-            background: #eadbc5;
-            padding: 0.6rem;
-            border-radius: 20px;
-            box-shadow: inset 0 2px 6px rgba(90, 60, 30, 0.15);
-        }
+
         .header-left h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 800;
             letter-spacing: -0.02em;
-            color: #3d2a1b;
+            background: linear-gradient(135deg, #5a3421, #2f1b10, #6f3f28);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 12px rgba(180, 110, 60, 0.15);
         }
         .header-left small {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: #6b4f37;
-            margin-top: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #7a543b;
+            background: rgba(235, 205, 185, 0.5);
+            padding: 0.15rem 1.2rem;
+            border-radius: 40px;
+            margin-top: 4px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #e6ceb9;
         }
+
         .header-actions {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
         }
+
+        /* ===== BUTTONS ===== */
         .btn {
-            background: #fffcf5;
             border: none;
-            padding: 0.7rem 1.5rem;
+            padding: 0.7rem 1.8rem;
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.95rem;
-            color: #3d2a1b;
-            box-shadow: 0 4px 10px rgba(90, 60, 30, 0.08);
             display: inline-flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid #dccbbc;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 4px 14px rgba(80, 50, 25, 0.08);
+            position: relative;
+            overflow: hidden;
         }
-        .btn i {
-            font-size: 1rem;
-            color: #7b4a2e;
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: 0.3s;
         }
-        .btn-primary {
-            background: #7b4a2e;
-            border: 1px solid #633b24;
+        .btn:hover::after { opacity: 1; }
+        .btn:active { transform: scale(0.95); }
+
+        .btn-save {
+            background: linear-gradient(135deg, #3e7a5c, #2b5c43);
             color: white;
+            border: 1px solid #1f4a34;
+            box-shadow: 0 6px 18px rgba(40, 90, 60, 0.25);
         }
-        .btn-primary i {
-            color: #f7ede1;
+        .btn-save:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(40, 90, 60, 0.35);
         }
-        .btn-primary:hover {
-            background: #633b24;
-            transform: scale(1.02);
-            box-shadow: 0 8px 18px rgba(90, 50, 20, 0.25);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #b99f86;
-        }
-        .btn-outline:hover {
-            background: #f2e3d4;
-            border-color: #7b4a2e;
-        }
-        .btn-success {
-            background: #2b6e4f;
-            border: 1px solid #1e553b;
+        .btn-save i { color: #d4edd9; }
+
+        .btn-pdf {
+            background: linear-gradient(135deg, #c0392b, #a93226);
             color: white;
+            border: 1px solid #8a2a1f;
+            box-shadow: 0 6px 18px rgba(150, 40, 40, 0.25);
         }
-        .btn-success i {
-            color: #e6f0e8;
+        .btn-pdf:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(150, 40, 40, 0.35);
         }
-        .btn-success:hover {
-            background: #1e553b;
-            transform: scale(1.02);
-        }
+        .btn-pdf i { color: #fadada; }
+
+        /* ===== TABLE WRAPPER ===== */
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 24px;
-            background: rgba(255, 245, 235, 0.5);
-            padding: 0.25rem 0.25rem 0.25rem 0.25rem;
-            box-shadow: inset 0 2px 6px rgba(80, 50, 20, 0.06);
+            border-radius: 32px;
+            background: linear-gradient(145deg, #f5e8da, #ecdac9);
+            padding: 0.4rem;
+            box-shadow: inset 0 2px 16px rgba(130, 80, 50, 0.08);
+            animation: tableGlow 8s ease-in-out infinite alternate;
         }
+        @keyframes tableGlow {
+            0% { box-shadow: inset 0 2px 16px rgba(130, 80, 50, 0.08), 0 0 20px rgba(200, 150, 110, 0.05); }
+            100% { box-shadow: inset 0 2px 16px rgba(130, 80, 50, 0.08), 0 0 40px rgba(200, 150, 110, 0.15); }
+        }
+
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             font-size: 0.9rem;
-            min-width: 880px;
-            background: #fdf9f2;
-            border-radius: 20px;
+            min-width: 920px;
+            background: #fffbf5;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 6px 18px rgba(70, 40, 15, 0.05);
+            box-shadow: 0 8px 28px rgba(90, 60, 30, 0.08);
         }
+
+        /* ===== TH ===== */
         th {
-            background: #dac9b4;
-            color: #2d1e12;
+            background: linear-gradient(145deg, #d9b99b, #c9a384);
+            color: #281b10;
             font-weight: 700;
-            padding: 1rem 0.8rem;
+            padding: 1.1rem 0.8rem;
             text-align: center;
-            font-size: 0.85rem;
-            letter-spacing: 0.02em;
-            border-bottom: 3px solid #b39278;
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+            border-bottom: 4px solid #b28464;
+            text-shadow: 0 1px 2px rgba(255, 225, 200, 0.3);
+            position: relative;
         }
+        th i {
+            margin-right: 8px;
+            color: #4f2f1d;
+            font-size: 1.1rem;
+        }
+        th:first-child { border-radius: 28px 0 0 0; }
+        th:last-child { border-radius: 0 28px 0 0; }
+
+        /* ===== TD ===== */
         td {
-            padding: 0.9rem 0.8rem;
-            border-bottom: 1px solid #e2d3c0;
+            padding: 0.6rem 0.5rem;
+            border-bottom: 1px solid #eddccc;
             vertical-align: middle;
             background: #fcf7ef;
-            color: #2b1e13;
+            color: #2b1b10;
+            transition: background 0.2s;
         }
-        tr:last-child td {
-            border-bottom: none;
+        tr:hover td {
+            background: #faf0e6;
         }
-        td:first-child, th:first-child { padding-left: 1rem; }
-        td:last-child, th:last-child { padding-right: 1rem; }
-        .col-tanggal { font-weight: 700; color: #4f351f; width: 60px; text-align: center; }
-        .col-hari { font-weight: 600; color: #5f3f28; width: 70px; text-align: center; }
-        .col-instagram { min-width: 180px; }
-        .col-tiktok { min-width: 200px; }
-        .col-shorts { min-width: 140px; }
+        tr:last-child td { border-bottom: none; }
+        td:first-child, th:first-child { padding-left: 1.2rem; }
+        td:last-child, th:last-child { padding-right: 1.2rem; }
+
+        /* kolom tanggal & hari dengan warna gradasi */
+        .col-tanggal {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: #5f341e;
+            background: linear-gradient(135deg, #f7e4d4, #f2d9c4);
+            text-align: center;
+            width: 50px;
+            border-radius: 20px 0 0 20px;
+            position: relative;
+        }
+        .col-hari {
+            font-weight: 700;
+            color: #4f2e1b;
+            background: linear-gradient(135deg, #f0ddcc, #ead5c0);
+            text-align: center;
+            width: 70px;
+        }
+
+        /* ===== CELL EDITABLE ===== */
         .cell-editable {
-            background: transparent;
-            border: 1px solid transparent;
-            border-radius: 12px;
-            padding: 6px 10px;
+            background: rgba(255, 245, 230, 0.3);
+            border: 1px solid #e6cfb8;
+            border-radius: 16px;
+            padding: 8px 14px;
             width: 100%;
             font-size: 0.9rem;
-            color: #281e13;
-            transition: 0.15s;
+            color: #2a1d12;
+            transition: all 0.25s ease;
             font-family: inherit;
             resize: vertical;
-            background: rgba(255, 245, 230, 0.2);
-            line-height: 1.4;
+            line-height: 1.5;
+            box-shadow: inset 0 1px 4px rgba(100, 60, 30, 0.02);
+            min-height: 44px;
         }
         .cell-editable:focus {
             outline: none;
-            border-color: #b39278;
+            border-color: #b28464;
             background: #fffcf5;
-            box-shadow: 0 0 0 4px rgba(123, 74, 46, 0.08);
+            box-shadow: 0 0 0 6px rgba(180, 120, 80, 0.10), inset 0 1px 8px rgba(100, 60, 30, 0.04);
+            transform: scale(1.01);
         }
         .cell-editable:hover {
-            background: #fff7eb;
-            border-color: #dac9b4;
+            background: #fff6ea;
+            border-color: #c4a084;
         }
-        .badge {
-            background: #dccbbc;
-            padding: 0.2rem 0.8rem;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #3d2a1b;
-            display: inline-block;
-            letter-spacing: 0.02em;
-        }
+
+        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #2d1e12;
-            color: #f2e3d4;
-            padding: 1rem 2rem;
-            border-radius: 60px;
+            background: linear-gradient(135deg, #2b1b10, #1f130b);
+            color: #f7ece1;
+            padding: 1rem 2.4rem;
+            border-radius: 80px;
             font-weight: 500;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,215,175,0.1);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             opacity: 0;
-            transform: translateY(10px);
-            transition: 0.25s ease;
+            transform: translateY(20px) scale(0.95);
+            transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
             pointer-events: none;
             z-index: 999;
+            border-left: 6px solid #f1cfb5;
+            backdrop-filter: blur(6px);
         }
         .toast.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
-        .toast i { color: #c8b094; font-size: 1.2rem; }
+        .toast i { font-size: 1.5rem; color: #f1cfb5; animation: toastPop 0.6s ease; }
+        @keyframes toastPop {
+            0% { transform: scale(0); }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
 
-        @media (max-width: 700px) {
-            .card { padding: 1.2rem; }
-            .header { flex-direction: column; align-items: start; gap: 1rem; }
-            .header-left h1 { font-size: 1.5rem; }
+        /* ===== FOOTER ===== */
+        .footer-note {
+            margin-top: 1.4rem;
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: #5b3f2b;
+            background: rgba(235, 210, 190, 0.3);
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(235, 210, 190, 0.2);
+            transition: 0.3s;
         }
-        /* PDF export styling – agar tidak terpotong */
+        .footer-note:hover {
+            background: rgba(235, 210, 190, 0.45);
+        }
+        .footer-note i {
+            color: #9d7053;
+            margin-right: 6px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .card { padding: 1.2rem; border-radius: 2rem; }
+            .header {
+                flex-direction: column;
+                align-items: start;
+                gap: 1rem;
+                border-radius: 40px;
+                padding: 1.2rem 1.5rem;
+            }
+            .header-left h1 { font-size: 1.6rem; }
+            .header-actions { width: 100%; justify-content: flex-start; }
+            .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+        }
+
+        /* ===== PRINT PDF ===== */
         @media print {
-            body { background: white; padding: 0.2in; }
-            .card { box-shadow: none; padding: 0.2in; background: white; }
+            body { background: white !important; animation: none !important; padding: 0.1in; }
+            .card { animation: none !important; background: white !important; box-shadow: none !important; border: none; padding: 0.1in; }
+            .header { background: #f0e1d2 !important; border: 1px solid #c6aa90 !important; animation: none !important; }
             .btn, .header-actions { display: none !important; }
-            .cell-editable { border: 1px solid #ccc; background: white; }
-            table { box-shadow: none; }
-            th { background: #e2d3c0; }
+            .cell-editable { border: 1px solid #b79a80 !important; background: white !important; }
+            table { box-shadow: none !important; }
+            th { background: #d9b99b !important; }
+            .table-wrapper { animation: none !important; background: #f0e1d2 !important; }
+            .footer-note { display: none; }
         }
     </style>
 </head>
 <body>
 
     <div class="card" id="scheduleCard">
-        <!-- Header -->
+        <!-- HEADER (tanpa logo/ikon) -->
         <div class="header">
             <div class="header-left">
-                <i class="fas fa-utensils"></i>
                 <div>
                     <h1>Pawon Mbah Gito</h1>
-                    <small><i class="fas fa-calendar-alt" style="margin-right:6px;"></i>Jadwal Konten · Divisi Konten</small>
+                    <small><i class="fas fa-calendar-alt" style="margin-right:8px;"></i>Jadwal Konten · Divisi Konten</small>
                 </div>
             </div>
             <div class="header-actions">
-                <button class="btn btn-success" id="saveBtn"><i class="fas fa-save"></i> Simpan</button>
-                <button class="btn btn-primary" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                <button class="btn btn-save" id="saveBtn"><i class="fas fa-save"></i> Simpan</button>
+                <button class="btn btn-pdf" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> Export PDF</button>
             </div>
         </div>
 
-        <!-- Tabel Schedule -->
+        <!-- TABLE -->
         <div class="table-wrapper" id="tableWrapper">
             <table id="scheduleTable">
                 <thead>
                     <tr>
-                        <th>Tanggal</th>
-                        <th>Hari</th>
-                        <th class="col-instagram">Instagram <span style="font-weight:400;">(Feed/Reels)</span></th>
-                        <th class="col-tiktok">TikTok <span style="font-weight:400;">(Harian)</span></th>
-                        <th class="col-shorts">YouTube Shorts</th>
+                        <th><i class="fas fa-hashtag"></i> Tgl</th>
+                        <th><i class="fas fa-calendar-day"></i> Hari</th>
+                        <th style="min-width:190px;"><i class="fab fa-instagram"></i> Instagram <span style="font-weight:400;">(Feed/Reels)</span></th>
+                        <th style="min-width:210px;"><i class="fab fa-tiktok"></i> TikTok <span style="font-weight:400;">(Harian)</span></th>
+                        <th style="min-width:150px;"><i class="fab fa-youtube"></i> YouTube Shorts</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- data akan diisi oleh javascript -->
+                    <!-- JS render -->
                 </tbody>
             </table>
         </div>
-        <div style="margin-top:1rem; font-size:0.8rem; color:#6b4f37; display:flex; gap:20px; flex-wrap:wrap;">
-            <span><i class="fas fa-pen" style="margin-right:6px;"></i>Klik sel untuk mengubah konten</span>
-            <span><i class="fas fa-save" style="margin-right:6px;"></i>Setiap perubahan tersimpan manual</span>
+
+        <div class="footer-note">
+            <span><i class="fas fa-pen-fancy"></i> Klik sel untuk mengubah</span>
+            <span><i class="fas fa-save"></i> Simpan manual setelah perubahan</span>
+            <span><i class="fas fa-palette"></i> #PawonMbahGito</span>
+            <span><i class="fas fa-magic"></i> Animasi modern</span>
         </div>
     </div>
 
-    <!-- Toast notifikasi -->
+    <!-- TOAST -->
     <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Tersimpan</span></div>
 
     <script>
         (function() {
-            // ---------- DATA AWAL ----------
+            // ---------- DATA ----------
             const initialData = [
                 { tanggal: "1", hari: "Rabu", instagram: "Reels: Morning Vibes Pawon Mbah Gito (kabut, sawah, suara alam)", tiktok: "POV datang ke Pawon jam buka", shorts: "-" },
                 { tanggal: "2", hari: "Kamis", instagram: "-", tiktok: "Hero Menu Rawon", shorts: "Menu Prasmanan Terlengkap di Jogja" },
@@ -325,14 +441,16 @@
                 { tanggal: "31", hari: "Jumat", instagram: "-", tiktok: "Kompilasi Juli (Menu, Customer, Barista & Vibes)", shorts: "Best Moments Juli 2026" }
             ];
 
-            // ---------- RENDER TABLE ----------
+            // ---------- RENDER ----------
             const tbody = document.getElementById('tableBody');
 
             function renderTable(data) {
                 tbody.innerHTML = '';
                 data.forEach((row, index) => {
                     const tr = document.createElement('tr');
-                    // kolom tanggal
+                    tr.style.animation = `rowFadeIn ${0.3 + index * 0.02}s ease forwards`;
+                    tr.style.opacity = '0';
+
                     const tdTanggal = document.createElement('td');
                     tdTanggal.className = 'col-tanggal';
                     tdTanggal.textContent = row.tanggal;
@@ -342,7 +460,6 @@
                     tdHari.textContent = row.hari;
 
                     const tdIg = document.createElement('td');
-                    tdIg.className = 'col-instagram';
                     const igInput = document.createElement('textarea');
                     igInput.className = 'cell-editable';
                     igInput.rows = 1;
@@ -352,7 +469,6 @@
                     tdIg.appendChild(igInput);
 
                     const tdTiktok = document.createElement('td');
-                    tdTiktok.className = 'col-tiktok';
                     const ttInput = document.createElement('textarea');
                     ttInput.className = 'cell-editable';
                     ttInput.rows = 1;
@@ -362,7 +478,6 @@
                     tdTiktok.appendChild(ttInput);
 
                     const tdShorts = document.createElement('td');
-                    tdShorts.className = 'col-shorts';
                     const shortsInput = document.createElement('textarea');
                     shortsInput.className = 'cell-editable';
                     shortsInput.rows = 1;
@@ -379,13 +494,23 @@
                     tbody.appendChild(tr);
                 });
 
-                // auto-resize textarea
+                // auto-resize & event
                 document.querySelectorAll('.cell-editable').forEach(ta => {
                     autoResize(ta);
                     ta.addEventListener('input', function() {
                         autoResize(this);
                     });
                 });
+
+                // tambahkan keyframe animasi row
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rowFadeIn {
+                        from { opacity: 0; transform: translateY(10px) scale(0.98); }
+                        to { opacity: 1; transform: translateY(0) scale(1); }
+                    }
+                `;
+                document.head.appendChild(style);
             }
 
             function autoResize(el) {
@@ -393,7 +518,7 @@
                 el.style.height = el.scrollHeight + 'px';
             }
 
-            // ---------- GET DATA DARI TABLE (untuk save / export) ----------
+            // ---------- GET DATA ----------
             function getTableData() {
                 const rows = tbody.querySelectorAll('tr');
                 const data = [];
@@ -409,8 +534,8 @@
                 return data;
             }
 
-            // ---------- SIMPAN (toast) ----------
-            function showToast(msg = '✅ Jadwal berhasil disimpan!') {
+            // ---------- TOAST ----------
+            function showToast(msg = '✅ Berhasil disimpan!') {
                 const toast = document.getElementById('toast');
                 const toastMsg = document.getElementById('toastMsg');
                 toastMsg.textContent = msg;
@@ -418,14 +543,12 @@
                 clearTimeout(window.toastTimeout);
                 window.toastTimeout = setTimeout(() => {
                     toast.classList.remove('show');
-                }, 2800);
+                }, 3000);
             }
 
+            // ---------- SAVE ----------
             document.getElementById('saveBtn').addEventListener('click', function() {
-                // ambil data terbaru dari textarea
                 const data = getTableData();
-                // simpan ke localStorage (opsional) atau cukup tampilkan notifikasi
-                // kita simpan ke localStorage agar persist
                 try {
                     localStorage.setItem('pawonScheduleData', JSON.stringify(data));
                     showToast('📋 Jadwal berhasil disimpan!');
@@ -434,70 +557,61 @@
                 }
             });
 
-            // ---------- EXPORT PDF (menggunakan html2pdf) ----------
+            // ---------- EXPORT PDF ----------
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
-                // ambil elemen card (tabel + header)
                 const element = document.getElementById('scheduleCard');
-                // clone untuk menghindari efek tombol yang ikut
                 const clone = element.cloneNode(true);
-                // hapus tombol aksi di clone
                 const actions = clone.querySelector('.header-actions');
                 if (actions) actions.remove();
-                // tambahkan style khusus agar tidak terpotong
+
                 clone.style.background = 'white';
                 clone.style.padding = '20px';
                 clone.style.borderRadius = '0';
                 clone.style.boxShadow = 'none';
                 clone.style.maxWidth = '100%';
-                // pastikan semua textarea terlihat
+                clone.style.animation = 'none';
+
                 const textareas = clone.querySelectorAll('.cell-editable');
                 textareas.forEach(ta => {
-                    ta.style.border = '1px solid #ccc';
-                    ta.style.background = 'white';
+                    ta.style.border = '1px solid #b99a7e';
+                    ta.style.background = '#fcf7ef';
                     ta.style.resize = 'none';
                 });
 
-                // siapkan opsi PDF
+                const headerClone = clone.querySelector('.header');
+                if (headerClone) {
+                    headerClone.style.background = '#f0e1d2';
+                    headerClone.style.border = '1px solid #c6aa90';
+                    headerClone.style.animation = 'none';
+                }
+
+                const wrapper = clone.querySelector('.table-wrapper');
+                if (wrapper) wrapper.style.animation = 'none';
+
                 const opt = {
-                    margin:        [0.4, 0.4, 0.4, 0.4], // top, right, bottom, left (in)
+                    margin:        [0.3, 0.3, 0.3, 0.3],
                     filename:      'Pawon_Mbah_Gito_Schedule.pdf',
                     image:         { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
-                    jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' } // landscape agar lebar
+                    jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
                 };
 
-                // tampilkan loading
                 showToast('⏳ Menyiapkan PDF...');
-
-                // Generate PDF
                 html2pdf().set(opt).from(clone).save().then(() => {
                     showToast('📄 PDF berhasil diekspor!');
-                }).catch(err => {
-                    console.error(err);
+                }).catch(() => {
                     showToast('⚠️ Gagal ekspor PDF, coba lagi.');
                 });
             });
 
-            // ---------- INIT: muat data dari localStorage atau initial ----------
+            // ---------- INIT ----------
             let storedData = null;
             try {
                 const raw = localStorage.getItem('pawonScheduleData');
                 if (raw) storedData = JSON.parse(raw);
             } catch(e) {}
-
             const startData = (storedData && storedData.length === initialData.length) ? storedData : initialData;
             renderTable(startData);
-
-            // simpan otomatis saat pertama load (agar konsisten)
-            // tidak perlu, user bisa simpan manual
-
-            // event: jika ada perubahan di textarea, kita tandai (opsional)
-            // tidak perlu auto-save, sesuai permintaan: bisa di save manual
-
-            // ---------- TAMBAHAN: jika user mengetik, auto-resize ----------
-            // sudah di handle di renderTable
-
-            // handle jika pengguna menambah / mengubah manual, data tetap tersimpan via tombol save
         })();
     </script>
 
