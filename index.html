@@ -237,108 +237,96 @@
         }
 
         /* ============================================================ */
-        /* ===== STYLE PDF - SAMA PERSIS DENGAN TAMPILAN WEB ===== */
+        /* ===== STYLE PDF - SAMA PERSIS DENGAN FILE PDF YANG DIBERIKAN ===== */
         /* ============================================================ */
         .pdf-wrapper {
             background: white;
-            padding: 25px 30px 20px 30px;
-            font-family: 'Inter', -apple-system, sans-serif;
+            padding: 30px 35px 25px 35px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             width: 100%;
             box-sizing: border-box;
             margin: 0 auto;
         }
-        .pdf-wrapper .pdf-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-bottom: 3px solid #b28464;
-            padding-bottom: 8px;
-            margin-bottom: 14px;
-        }
-        .pdf-wrapper .pdf-header h1 {
-            font-size: 20px;
+        .pdf-wrapper .pdf-title {
+            font-size: 22px;
             font-weight: 800;
             color: #3d2417;
-            background: linear-gradient(135deg, #5a3421, #2f1b10);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            text-align: center;
+            margin-bottom: 4px;
         }
-        .pdf-wrapper .pdf-header .pdf-sub {
-            font-size: 11px;
+        .pdf-wrapper .pdf-subtitle {
+            font-size: 13px;
             color: #7a543b;
+            text-align: center;
             font-weight: 500;
-            margin-top: 2px;
+            margin-bottom: 6px;
         }
-        .pdf-wrapper .pdf-header .pdf-sub i {
-            color: #9d7053;
-            margin-right: 6px;
-        }
-        .pdf-wrapper .pdf-header .pdf-date {
-            font-size: 10px;
+        .pdf-wrapper .pdf-date {
+            font-size: 12px;
             color: #6b4f37;
-            background: #f0e1d2;
-            padding: 3px 12px;
-            border-radius: 40px;
+            text-align: center;
             font-weight: 600;
-            white-space: nowrap;
+            margin-bottom: 16px;
+            background: #f0e1d2;
+            padding: 4px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            width: auto;
         }
-        .pdf-wrapper .pdf-header .pdf-date i {
-            margin-right: 4px;
+        .pdf-wrapper .pdf-date-wrap {
+            text-align: center;
         }
         .pdf-wrapper .pdf-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 9px;
-            margin-top: 2px;
+            font-size: 10px;
+            margin-top: 4px;
         }
         .pdf-wrapper .pdf-table th {
-            background: linear-gradient(145deg, #d9b99b, #c9a384);
+            background: #d9b99b;
             color: #281b10;
             font-weight: 700;
-            padding: 6px 4px;
+            padding: 8px 6px;
             text-align: center;
             border: 1px solid #b99a7e;
-            font-size: 8.5px;
-        }
-        .pdf-wrapper .pdf-table th i {
-            margin-right: 4px;
-            color: #4f2f1d;
+            font-size: 9.5px;
         }
         .pdf-wrapper .pdf-table td {
-            padding: 4px 4px;
+            padding: 6px 5px;
             border: 1px solid #dccbbc;
             vertical-align: middle;
             background: #fcf7ef;
             color: #2b1b10;
             line-height: 1.3;
-            font-size: 8.5px;
+            font-size: 9.5px;
             word-wrap: break-word;
         }
         .pdf-wrapper .pdf-table .pdf-tgl {
             text-align: center;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f7e4d4, #f2d9c4);
-            width: 26px;
-            font-size: 9px;
+            font-weight: 700;
+            background: #f7e4d4;
+            width: 30px;
+            font-size: 10px;
             color: #5f341e;
         }
         .pdf-wrapper .pdf-table .pdf-hari {
             text-align: center;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f0ddcc, #ead5c0);
-            width: 38px;
-            font-size: 9px;
+            font-weight: 600;
+            background: #f0ddcc;
+            width: 45px;
+            font-size: 10px;
             color: #4f2e1b;
         }
         .pdf-wrapper .pdf-footer {
-            margin-top: 12px;
+            margin-top: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 2px solid #d9b99b;
-            padding-top: 8px;
-            font-size: 9px;
+            padding-top: 10px;
+            font-size: 10px;
             color: #5b3f2b;
         }
         .pdf-wrapper .pdf-footer .pdf-brand {
@@ -358,9 +346,9 @@
         }
         .pdf-wrapper .pdf-footer .pdf-page-info {
             background: #f0e1d2;
-            padding: 2px 12px;
+            padding: 2px 14px;
             border-radius: 40px;
-            font-size: 8px;
+            font-size: 9px;
             font-weight: 600;
             color: #5b3f2b;
         }
@@ -419,7 +407,7 @@
         (function() {
             const initialData = [
                 { tanggal: "1", hari: "Rabu", instagram: "Reels: Morning Vibes Pawon Mbah Gito (kabut, sawah, suara alam)", tiktok: "POV datang ke Pawon jam buka", shorts: "-" },
-                { tanggal: "2", hari: "Kamis", instagram: "-", tiktok: "Hero Menu Rawon", shorts: "Menu Prasmanan Terlengkap di Jogja" },
+                { tanggal: "2", hari: "Kamis", instagram: "-", tiktok: "Kitchen Serenity - Menu Rawon", shorts: "Menu Prasmanan Terlengkap di Jogja" },
                 { tanggal: "3", hari: "Jumat", instagram: "-", tiktok: "ASMR ambil lauk prasmanan", shorts: "15 Detik Bikin Lapar" },
                 { tanggal: "4", hari: "Sabtu", instagram: "Feed: Hero Menu Bebek Sambal Tempong", tiktok: "Behind The Kitchen Bebek Tempong", shorts: "-" },
                 { tanggal: "5", hari: "Ahad", instagram: "-", tiktok: "Barista membuat Es Teler", shorts: "Weekend Vibes Pawon Mbah Gito" },
@@ -429,26 +417,26 @@
                 { tanggal: "9", hari: "Kamis", instagram: "-", tiktok: "Barista membuat Telang Fresh", shorts: "Signature Drink Hari Ini" },
                 { tanggal: "10", hari: "Jumat", instagram: "-", tiktok: "Hospitality Challenge (Senyum & Sambutan)", shorts: "Pelayanan yang Membuat Betah" },
                 { tanggal: "11", hari: "Sabtu", instagram: "Feed: Spot Foto Estetik Pawon", tiktok: "Hidden Spot Pawon", shorts: "-" },
-                { tanggal: "12", hari: "Ahad", instagram: "-", tiktok: "Hero Menu Mie Lethek Godog", shorts: "First Impression Pelanggan" },
+                { tanggal: "12", hari: "Ahad", instagram: "-", tiktok: "Menu Mie Lethek Godog", shorts: "First Impression Pelanggan" },
                 { tanggal: "13", hari: "Senin", instagram: "Reels: Suasana Hujan di Pawon", tiktok: "Rain Ambience", shorts: "-" },
-                { tanggal: "14", hari: "Selasa", instagram: "-", tiktok: "Hero Menu Ayam Goreng Kampung PMG", shorts: "Ayam Kampung Favorit" },
+                { tanggal: "14", hari: "Selasa", instagram: "-", tiktok: "Feed: Mie Lethek Goreng", shorts: "Ayam Kampung Favorit" },
                 { tanggal: "15", hari: "Rabu", instagram: "Reels: Kenapa Orang Betah di Pawon?", tiktok: "Walking Tour Pawon", shorts: "-" },
                 { tanggal: "16", hari: "Kamis", instagram: "-", tiktok: "Barista membuat Roembulan", shorts: "Minuman Segar Wajib Dicoba" },
                 { tanggal: "17", hari: "Jumat", instagram: "-", tiktok: "10 Menu Favorit dalam 15 Detik", shorts: "Menu Challenge" },
                 { tanggal: "18", hari: "Sabtu", instagram: "Feed: Filosofi Pawon & Konsep Pedesaan", tiktok: "Cerita Pawon Mbah Gito", shorts: "-" },
                 { tanggal: "19", hari: "Ahad", instagram: "-", tiktok: "Ramainya makan siang + Customer Reaction", shorts: "Lunch Rush" },
                 { tanggal: "20", hari: "Senin", instagram: "Reels: Slow Motion Ambil Lauk Prasmanan", tiktok: "Food Cinematic", shorts: "-" },
-                { tanggal: "21", hari: "Selasa", instagram: "-", tiktok: "Hero Menu Sop Ayam Kampung", shorts: "Masakan Rumahan" },
+                { tanggal: "21", hari: "Selasa", instagram: "-", tiktok: "Menu Sop Ayam Kampung", shorts: "Masakan Rumahan" },
                 { tanggal: "22", hari: "Rabu", instagram: "Reels: Barista Performance (Latte Art / Pouring)", tiktok: "Coffee Making Cinematic", shorts: "-" },
-                { tanggal: "23", hari: "Kamis", instagram: "-", tiktok: "Hero Menu Ayam Bakar PMG", shorts: "Top 5 Menu Terlaris" },
+                { tanggal: "23", hari: "Kamis", instagram: "-", tiktok: "Menu Ayam Bakar PMG Platting", shorts: "Top 5 Menu Terlaris" },
                 { tanggal: "24", hari: "Jumat", instagram: "-", tiktok: "Persiapan Sebelum Buka", shorts: "Before Opening" },
-                { tanggal: "25", hari: "Sabtu", instagram: "Feed: Hero Menu Kembulan Penyetan", tiktok: "Makan Bareng Keluarga", shorts: "-" },
+                { tanggal: "25", hari: "Sabtu", instagram: "Feed: Menu Kembulan Penyetan / Suasana Kitchen alacarte", tiktok: "Makan Bareng Keluarga", shorts: "-" },
                 { tanggal: "26", hari: "Ahad", instagram: "-", tiktok: "Barista membuat Matcha Ice", shorts: "Hidden Gem Pawon" },
                 { tanggal: "27", hari: "Senin", instagram: "Reels: Kesibukan Dapur Saat Jam Makan", tiktok: "Behind The Kitchen", shorts: "-" },
-                { tanggal: "28", hari: "Selasa", instagram: "-", tiktok: "Hero Menu Paket Syukur", shorts: "Behind The Counter" },
+                { tanggal: "28", hari: "Selasa", instagram: "-", tiktok: "Kitchen Serenity - Menu Paket Syukur", shorts: "Behind The Counter" },
                 { tanggal: "29", hari: "Rabu", instagram: "Reels: Golden Hour Pawon + Coffee Time", tiktok: "Morning Coffee & Village Vibes", shorts: "-" },
-                { tanggal: "30", hari: "Kamis", instagram: "-", tiktok: "Bakmi Jawa Godog vs Mie Lethek Goreng + Barista membuat Kiwi Tropical & Summer Pineapple", shorts: "Battle Menu Favorit" },
-                { tanggal: "31", hari: "Jumat", instagram: "-", tiktok: "Kompilasi Juli (Menu, Customer, Barista & Vibes)", shorts: "Best Moments Juli 2026" }
+                { tanggal: "30", hari: "Kamis", instagram: "-", tiktok: "Barista Show Prepare Wedang Mbah Gito", shorts: "Menu Favorit & Best Seller Bulan Juli" },
+                { tanggal: "31", hari: "Jumat", instagram: "-", tiktok: "Kompliasi Juli (Menu, Customer, Barista & Vibes)", shorts: "Best Moments Juli 2026" }
             ];
 
             const tbody = document.getElementById('tableBody');
@@ -558,13 +546,13 @@
                 }
             });
 
-            // ========== EXPORT PDF - SAMA PERSIS DENGAN TAMPILAN WEB ==========
+            // ========== EXPORT PDF - SAMA PERSIS DENGAN FILE PDF ==========
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
                 const data = getTableData();
                 const now = new Date();
                 const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-                // Bangun tabel HTML untuk PDF - SAMA PERSIS dengan web
+                // Bangun tabel HTML untuk PDF
                 let tableRows = '';
                 data.forEach(row => {
                     tableRows += `
@@ -580,22 +568,20 @@
 
                 const pdfHTML = `
                     <div class="pdf-wrapper">
-                        <div class="pdf-header">
-                            <div>
-                                <h1>Pawon Mbah Gito</h1>
-                                <div class="pdf-sub"><i class="fas fa-calendar-alt"></i> Jadwal Konten · Divisi Konten</div>
-                            </div>
+                        <div class="pdf-title">Pawon Mbah Gito</div>
+                        <div class="pdf-subtitle">Jadwal Konten - Divisi Konten</div>
+                        <div class="pdf-date-wrap">
                             <div class="pdf-date"><i class="fas fa-calendar-check"></i> ${dateStr}</div>
                         </div>
 
                         <table class="pdf-table">
                             <thead>
                                 <tr>
-                                    <th style="width:6%;"><i class="fas fa-hashtag"></i> Tgl</th>
-                                    <th style="width:10%;"><i class="fas fa-calendar-day"></i> Hari</th>
-                                    <th style="width:28%;"><i class="fab fa-instagram"></i> Instagram (Feed/Reels)</th>
-                                    <th style="width:31%;"><i class="fab fa-tiktok"></i> TikTok (Harian)</th>
-                                    <th style="width:25%;"><i class="fab fa-youtube"></i> YouTube Shorts</th>
+                                    <th style="width:6%;">Tgl</th>
+                                    <th style="width:10%;">Hari</th>
+                                    <th style="width:28%;">Instagram (Feed/Reels)</th>
+                                    <th style="width:31%;">TikTok (Harian)</th>
+                                    <th style="width:25%;">YouTube Shorts</th>
                                 </tr>
                             </thead>
                             <tbody>${tableRows}</tbody>
@@ -609,7 +595,7 @@
                     </div>
                 `;
 
-                // Container sementara dengan lebar yang cukup
+                // Container sementara
                 const container = document.createElement('div');
                 container.innerHTML = pdfHTML;
                 container.style.position = 'absolute';
@@ -625,7 +611,7 @@
 
                 const opt = {
                     margin: [0.2, 0.2, 0.2, 0.2],
-                    filename: 'Pawon_Mbah_Gito_Schedule.pdf',
+                    filename: 'JADWAL_Pawon_Mbah_Gito.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: {
                         scale: 3.5,
