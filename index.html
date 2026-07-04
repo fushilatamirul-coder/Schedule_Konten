@@ -237,11 +237,11 @@
         }
 
         /* ============================================================ */
-        /* ===== STYLE PDF 1 HALAMAN MARGIN SEIMBANG ===== */
+        /* ===== STYLE PDF 1 HALAMAN - MARGIN SEIMBANG SEPERTI GAMBAR 1 ===== */
         /* ============================================================ */
         .pdf-single-page {
             background: white;
-            padding: 20px 30px 15px 30px;
+            padding: 25px 35px 20px 35px;
             font-family: 'Inter', -apple-system, sans-serif;
             width: 100%;
             box-sizing: border-box;
@@ -253,7 +253,7 @@
             align-items: flex-end;
             border-bottom: 3px solid #b28464;
             padding-bottom: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .pdf-single-page .pdf-header h1 {
             font-size: 20px;
@@ -315,12 +315,12 @@
             font-size: 9px;
         }
         .pdf-single-page .pdf-footer {
-            margin-top: 10px;
+            margin-top: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 2px solid #d9b99b;
-            padding-top: 6px;
+            padding-top: 8px;
             font-size: 9px;
             color: #5b3f2b;
         }
@@ -337,7 +337,7 @@
         }
         .pdf-single-page .pdf-footer .pdf-page-info {
             background: #f0e1d2;
-            padding: 1px 10px;
+            padding: 2px 12px;
             border-radius: 40px;
             font-size: 8px;
             font-weight: 600;
@@ -345,7 +345,7 @@
         .pdf-container-single {
             background: white;
             padding: 5px;
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
         }
     </style>
@@ -533,7 +533,7 @@
                 }
             });
 
-            // ========== EXPORT PDF 1 HALAMAN MARGIN SEIMBANG ==========
+            // ========== EXPORT PDF 1 HALAMAN - MARGIN SEPERTI GAMBAR 1 ==========
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
                 const data = getTableData();
                 const now = new Date();
@@ -590,7 +590,7 @@
                 container.style.position = 'absolute';
                 container.style.left = '-9999px';
                 container.style.top = '0';
-                container.style.width = '950px';
+                container.style.width = '1000px';
                 container.style.background = 'white';
                 container.style.padding = '5px';
                 document.body.appendChild(container);
@@ -606,7 +606,7 @@
                         letterRendering: true,
                         useCORS: true,
                         logging: false,
-                        width: 950,
+                        width: 1000,
                         height: pdfElement.scrollHeight + 30
                     },
                     jsPDF: {
