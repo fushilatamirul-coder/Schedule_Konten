@@ -237,11 +237,11 @@
         }
 
         /* ============================================================ */
-        /* ===== STYLE PDF 1 HALAMAN - MARGIN SEIMBANG SEPERTI GAMBAR 1 ===== */
+        /* ===== STYLE PDF 1 HALAMAN - MARGIN SEIMBANG ===== */
         /* ============================================================ */
         .pdf-single-page {
             background: white;
-            padding: 25px 35px 20px 35px;
+            padding: 20px 30px 15px 30px;
             font-family: 'Inter', -apple-system, sans-serif;
             width: 100%;
             box-sizing: border-box;
@@ -252,25 +252,25 @@
             justify-content: space-between;
             align-items: flex-end;
             border-bottom: 3px solid #b28464;
-            padding-bottom: 8px;
-            margin-bottom: 14px;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
         }
         .pdf-single-page .pdf-header h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
             color: #3d2417;
         }
         .pdf-single-page .pdf-header .pdf-sub {
-            font-size: 11px;
+            font-size: 10px;
             color: #7a543b;
             font-weight: 500;
             margin-top: 2px;
         }
         .pdf-single-page .pdf-header .pdf-date {
-            font-size: 10px;
+            font-size: 9px;
             color: #6b4f37;
             background: #f0e1d2;
-            padding: 3px 12px;
+            padding: 2px 10px;
             border-radius: 40px;
             font-weight: 600;
             white-space: nowrap;
@@ -278,50 +278,50 @@
         .pdf-single-page .pdf-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 9px;
+            font-size: 8px;
             margin-top: 2px;
         }
         .pdf-single-page .pdf-table th {
             background: #d9b99b;
             color: #281b10;
             font-weight: 700;
-            padding: 5px 4px;
+            padding: 4px 3px;
             text-align: center;
             border: 1px solid #b99a7e;
-            font-size: 8.5px;
+            font-size: 7.5px;
         }
         .pdf-single-page .pdf-table td {
-            padding: 4px 4px;
+            padding: 3px 3px;
             border: 1px solid #dccbbc;
             vertical-align: middle;
             background: #fcf7ef;
             color: #2b1b10;
-            line-height: 1.25;
-            font-size: 8.5px;
+            line-height: 1.2;
+            font-size: 7.5px;
             word-wrap: break-word;
         }
         .pdf-single-page .pdf-table .pdf-tgl {
             text-align: center;
             font-weight: 700;
             background: #f7e4d4;
-            width: 28px;
-            font-size: 9px;
+            width: 24px;
+            font-size: 8px;
         }
         .pdf-single-page .pdf-table .pdf-hari {
             text-align: center;
             font-weight: 600;
             background: #f0ddcc;
-            width: 42px;
-            font-size: 9px;
+            width: 36px;
+            font-size: 8px;
         }
         .pdf-single-page .pdf-footer {
-            margin-top: 12px;
+            margin-top: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 2px solid #d9b99b;
-            padding-top: 8px;
-            font-size: 9px;
+            padding-top: 6px;
+            font-size: 8px;
             color: #5b3f2b;
         }
         .pdf-single-page .pdf-footer .pdf-brand {
@@ -337,15 +337,15 @@
         }
         .pdf-single-page .pdf-footer .pdf-page-info {
             background: #f0e1d2;
-            padding: 2px 12px;
+            padding: 1px 10px;
             border-radius: 40px;
-            font-size: 8px;
+            font-size: 7.5px;
             font-weight: 600;
         }
         .pdf-container-single {
             background: white;
             padding: 5px;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
     </style>
@@ -533,13 +533,13 @@
                 }
             });
 
-            // ========== EXPORT PDF 1 HALAMAN - MARGIN SEPERTI GAMBAR 1 ==========
+            // ========== EXPORT PDF 1 HALAMAN DENGAN MARGIN SEIMBANG ==========
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
                 const data = getTableData();
                 const now = new Date();
                 const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-                // Buat tabel HTML
+                // Bangun tabel HTML untuk PDF
                 let tableRows = '';
                 data.forEach(row => {
                     tableRows += `
@@ -584,30 +584,31 @@
                     </div>
                 `;
 
-                // Container sementara dengan lebar yang pas
+                // Container sementara dengan lebar yang cukup
                 const container = document.createElement('div');
                 container.innerHTML = pdfHTML;
                 container.style.position = 'absolute';
                 container.style.left = '-9999px';
                 container.style.top = '0';
-                container.style.width = '1000px';
+                container.style.width = '1200px';
                 container.style.background = 'white';
                 container.style.padding = '5px';
+                container.style.overflow = 'visible';
                 document.body.appendChild(container);
 
                 const pdfElement = container.querySelector('.pdf-single-page');
 
                 const opt = {
-                    margin: [0.2, 0.2, 0.2, 0.2],
+                    margin: [0.15, 0.15, 0.15, 0.15],
                     filename: 'Pawon_Mbah_Gito_Schedule.pdf',
                     image: { type: 'jpeg', quality: 0.98 },
                     html2canvas: {
-                        scale: 3,
+                        scale: 3.5,
                         letterRendering: true,
                         useCORS: true,
                         logging: false,
-                        width: 1000,
-                        height: pdfElement.scrollHeight + 30
+                        width: 1200,
+                        height: pdfElement.scrollHeight + 20
                     },
                     jsPDF: {
                         unit: 'in',
