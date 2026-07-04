@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pawon Mbah Gito · Divisi Konten</title>
-    <!-- Font & Icons (hanya untuk tombol & dekorasi) -->
+    <!-- Font & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- html2pdf -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -53,7 +53,7 @@
             100% { transform: translateY(0px); }
         }
 
-        /* ===== HEADER (tanpa logo/ikon) ===== */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             flex-wrap: wrap;
@@ -344,10 +344,108 @@
             .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
         }
 
-        /* ===== PRINT PDF ===== */
+        /* ============================================================ */
+        /* ===== STYLE KHUSUS UNTUK PDF (lebih menarik & keren) ===== */
+        /* ============================================================ */
+        .pdf-wrapper {
+            background: white;
+            padding: 30px 35px;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+        .pdf-wrapper .pdf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 4px solid #b28464;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .pdf-wrapper .pdf-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #3d2417;
+            letter-spacing: -0.02em;
+        }
+        .pdf-wrapper .pdf-header .pdf-sub {
+            font-size: 14px;
+            color: #7a543b;
+            font-weight: 500;
+        }
+        .pdf-wrapper .pdf-header .pdf-date {
+            font-size: 13px;
+            color: #6b4f37;
+            background: #f0e1d2;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .pdf-wrapper .pdf-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11.5px;
+            margin-top: 6px;
+        }
+        .pdf-wrapper .pdf-table th {
+            background: #d9b99b;
+            color: #281b10;
+            font-weight: 700;
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #b99a7e;
+            font-size: 11px;
+            letter-spacing: 0.03em;
+        }
+        .pdf-wrapper .pdf-table td {
+            padding: 8px 8px;
+            border: 1px solid #dccbbc;
+            vertical-align: middle;
+            background: #fcf7ef;
+            color: #2b1b10;
+            line-height: 1.4;
+        }
+        .pdf-wrapper .pdf-table .pdf-tgl {
+            text-align: center;
+            font-weight: 700;
+            background: #f7e4d4;
+            width: 40px;
+        }
+        .pdf-wrapper .pdf-table .pdf-hari {
+            text-align: center;
+            font-weight: 600;
+            background: #f0ddcc;
+            width: 60px;
+        }
+        .pdf-wrapper .pdf-footer {
+            margin-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 3px solid #d9b99b;
+            padding-top: 14px;
+            font-size: 12px;
+            color: #5b3f2b;
+        }
+        .pdf-wrapper .pdf-footer .pdf-brand {
+            font-weight: 700;
+            color: #3d2417;
+            letter-spacing: 0.02em;
+        }
+        .pdf-wrapper .pdf-footer .pdf-brand i {
+            color: #9d7053;
+            margin-right: 6px;
+        }
+        .pdf-wrapper .pdf-footer .pdf-page {
+            background: #f0e1d2;
+            padding: 2px 16px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* override print untuk PDF */
         @media print {
-            body { background: white !important; animation: none !important; padding: 0.1in; }
-            .card { animation: none !important; background: white !important; box-shadow: none !important; border: none; padding: 0.1in; }
+            body { background: white !important; animation: none !important; padding: 0; }
+            .card { animation: none !important; background: white !important; box-shadow: none !important; border: none; padding: 0 !important; border-radius: 0 !important; }
             .header { background: #f0e1d2 !important; border: 1px solid #c6aa90 !important; animation: none !important; }
             .btn, .header-actions { display: none !important; }
             .cell-editable { border: 1px solid #b79a80 !important; background: white !important; }
@@ -361,7 +459,7 @@
 <body>
 
     <div class="card" id="scheduleCard">
-        <!-- HEADER (tanpa logo/ikon) -->
+        <!-- HEADER -->
         <div class="header">
             <div class="header-left">
                 <div>
@@ -494,7 +592,6 @@
                     tbody.appendChild(tr);
                 });
 
-                // auto-resize & event
                 document.querySelectorAll('.cell-editable').forEach(ta => {
                     autoResize(ta);
                     ta.addEventListener('input', function() {
@@ -502,7 +599,6 @@
                     });
                 });
 
-                // tambahkan keyframe animasi row
                 const style = document.createElement('style');
                 style.textContent = `
                     @keyframes rowFadeIn {
@@ -557,49 +653,111 @@
                 }
             });
 
-            // ---------- EXPORT PDF ----------
+            // ================================================================
+            // ============= EXPORT PDF YANG LEBIH KEREN =======================
+            // ================================================================
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
-                const element = document.getElementById('scheduleCard');
-                const clone = element.cloneNode(true);
-                const actions = clone.querySelector('.header-actions');
-                if (actions) actions.remove();
+                const data = getTableData();
 
-                clone.style.background = 'white';
-                clone.style.padding = '20px';
-                clone.style.borderRadius = '0';
-                clone.style.boxShadow = 'none';
-                clone.style.maxWidth = '100%';
-                clone.style.animation = 'none';
+                // Bangun HTML untuk PDF dengan desain menarik
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-                const textareas = clone.querySelectorAll('.cell-editable');
-                textareas.forEach(ta => {
-                    ta.style.border = '1px solid #b99a7e';
-                    ta.style.background = '#fcf7ef';
-                    ta.style.resize = 'none';
+                let tableRows = '';
+                data.forEach(row => {
+                    tableRows += `
+                        <tr>
+                            <td class="pdf-tgl">${row.tanggal}</td>
+                            <td class="pdf-hari">${row.hari}</td>
+                            <td>${row.instagram}</td>
+                            <td>${row.tiktok}</td>
+                            <td>${row.shorts}</td>
+                        </tr>
+                    `;
                 });
 
-                const headerClone = clone.querySelector('.header');
-                if (headerClone) {
-                    headerClone.style.background = '#f0e1d2';
-                    headerClone.style.border = '1px solid #c6aa90';
-                    headerClone.style.animation = 'none';
-                }
+                const pdfHTML = `
+                    <div class="pdf-wrapper">
+                        <!-- HEADER PDF -->
+                        <div class="pdf-header">
+                            <div>
+                                <h1>🌾 Pawon Mbah Gito</h1>
+                                <div class="pdf-sub"><i class="fas fa-calendar-alt" style="margin-right:6px;"></i>Jadwal Konten · Divisi Konten</div>
+                            </div>
+                            <div class="pdf-date">
+                                <i class="fas fa-calendar-check"></i> ${dateStr}
+                            </div>
+                        </div>
 
-                const wrapper = clone.querySelector('.table-wrapper');
-                if (wrapper) wrapper.style.animation = 'none';
+                        <!-- TABLE PDF -->
+                        <table class="pdf-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px;"><i class="fas fa-hashtag"></i> Tgl</th>
+                                    <th style="width:60px;"><i class="fas fa-calendar-day"></i> Hari</th>
+                                    <th style="min-width:170px;"><i class="fab fa-instagram"></i> Instagram <span style="font-weight:400;">(Feed/Reels)</span></th>
+                                    <th style="min-width:190px;"><i class="fab fa-tiktok"></i> TikTok <span style="font-weight:400;">(Harian)</span></th>
+                                    <th style="min-width:140px;"><i class="fab fa-youtube"></i> YouTube Shorts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableRows}
+                            </tbody>
+                        </table>
+
+                        <!-- FOOTER PDF -->
+                        <div class="pdf-footer">
+                            <div class="pdf-brand">
+                                <i class="fas fa-utensils"></i> Pawon Mbah Gito · Konten Kreator
+                            </div>
+                            <div>
+                                <i class="fas fa-tag" style="margin-right:4px; color:#9d7053;"></i> #PawonMbahGito
+                            </div>
+                            <div class="pdf-page">
+                                <i class="fas fa-print"></i> Divisi Konten
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Buat elemen sementara untuk PDF
+                const container = document.createElement('div');
+                container.innerHTML = pdfHTML;
+                container.style.position = 'absolute';
+                container.style.left = '-9999px';
+                container.style.top = '0';
+                container.style.width = '1200px';
+                container.style.background = 'white';
+                container.style.padding = '20px';
+                container.style.fontFamily = "'Inter', -apple-system, sans-serif";
+                document.body.appendChild(container);
+
+                // Ambil elemen wrapper pdf
+                const pdfElement = container.querySelector('.pdf-wrapper');
 
                 const opt = {
-                    margin:        [0.3, 0.3, 0.3, 0.3],
+                    margin:        [0.2, 0.2, 0.2, 0.2],
                     filename:      'Pawon_Mbah_Gito_Schedule.pdf',
                     image:         { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
-                    jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
+                    html2canvas:  { 
+                        scale: 2.5, 
+                        letterRendering: true, 
+                        useCORS: true, 
+                        logging: false,
+                        width: 1200,
+                    },
+                    jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' },
+                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
                 };
 
-                showToast('⏳ Menyiapkan PDF...');
-                html2pdf().set(opt).from(clone).save().then(() => {
+                showToast('⏳ Menyiapkan PDF keren...');
+
+                html2pdf().set(opt).from(pdfElement).save().then(() => {
+                    document.body.removeChild(container);
                     showToast('📄 PDF berhasil diekspor!');
-                }).catch(() => {
+                }).catch((err) => {
+                    console.error(err);
+                    document.body.removeChild(container);
                     showToast('⚠️ Gagal ekspor PDF, coba lagi.');
                 });
             });
