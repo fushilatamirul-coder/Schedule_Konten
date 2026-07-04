@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,19 +22,34 @@
             justify-content: center;
             align-items: center;
             background: radial-gradient(circle at 10% 20%, #fdf0e3 0%, #f5dccb 100%);
+            animation: bgPulse 15s ease-in-out infinite alternate;
         }
 
+        @keyframes bgPulse {
+            0% { background: radial-gradient(circle at 10% 20%, #fdf0e3 0%, #f5dccb 100%); }
+            50% { background: radial-gradient(circle at 80% 40%, #f8e4d4 0%, #f0ceba 100%); }
+            100% { background: radial-gradient(circle at 30% 70%, #ffe8d6 0%, #f2cfb8 100%); }
+        }
+
+        /* ===== CARD UTAMA ===== */
         .card {
             max-width: 1440px;
             width: 100%;
-            background: rgba(255, 248, 240, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 248, 240, 0.88);
+            backdrop-filter: blur(12px);
             border-radius: 3.5rem;
             padding: 2rem 2rem 2.8rem;
-            box-shadow: 0 40px 70px rgba(100, 60, 30, 0.25);
-            border: 1px solid rgba(255, 225, 200, 0.4);
+            box-shadow: 0 40px 80px rgba(100, 60, 30, 0.3), 0 0 0 1px rgba(255, 225, 200, 0.3);
+            animation: cardFloat 8s ease-in-out infinite;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.002); }
+        }
+
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             flex-wrap: wrap;
@@ -44,7 +60,12 @@
             padding: 0.6rem 2rem;
             border-radius: 100px;
             border: 1px solid #ebd0ba;
-            box-shadow: 0 6px 20px rgba(150, 90, 50, 0.12);
+            box-shadow: 0 6px 24px rgba(150, 90, 50, 0.15), inset 0 1px 4px rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        .header:hover {
+            box-shadow: 0 10px 32px rgba(150, 90, 50, 0.25);
+            transform: scale(1.005);
         }
 
         .header-left h1 {
@@ -54,7 +75,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
         }
+        .header-left h1::after {
+            content: '🌾';
+            position: absolute;
+            right: -2.5rem;
+            top: -0.2rem;
+            font-size: 1.8rem;
+            -webkit-text-fill-color: initial;
+            animation: grainFloat 4s ease-in-out infinite;
+        }
+        @keyframes grainFloat {
+            0%, 100% { transform: rotate(-5deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.1); }
+        }
+
         .header-left small {
             display: block;
             font-size: 0.8rem;
@@ -65,6 +101,7 @@
             border-radius: 40px;
             margin-top: 4px;
             border: 1px solid #e6ceb9;
+            backdrop-filter: blur(4px);
         }
 
         .header-actions {
@@ -73,6 +110,7 @@
             flex-wrap: wrap;
         }
 
+        /* ===== BUTTONS ===== */
         .btn {
             border: none;
             padding: 0.7rem 1.8rem;
@@ -83,30 +121,85 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 14px rgba(80, 50, 25, 0.08);
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 4px 16px rgba(80, 50, 25, 0.1);
+            position: relative;
+            overflow: hidden;
         }
-        .btn:hover { transform: translateY(-2px); }
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .btn:hover::before { opacity: 1; }
+        .btn:hover { transform: translateY(-3px) scale(1.02); }
         .btn:active { transform: scale(0.95); }
 
         .btn-save {
             background: linear-gradient(135deg, #3e7a5c, #2b5c43);
             color: white;
+            border: 1px solid #1f4a34;
         }
-        .btn-save:hover { box-shadow: 0 8px 20px rgba(40, 90, 60, 0.35); }
+        .btn-save:hover { box-shadow: 0 10px 28px rgba(40, 90, 60, 0.4); }
 
         .btn-pdf {
             background: linear-gradient(135deg, #c0392b, #a93226);
             color: white;
+            border: 1px solid #8a2a1f;
         }
-        .btn-pdf:hover { box-shadow: 0 8px 20px rgba(150, 40, 40, 0.35); }
-        .btn-pdf i { color: #fadada; }
+        .btn-pdf:hover { box-shadow: 0 10px 28px rgba(150, 40, 40, 0.4); }
 
+        /* ===== SAVE INDICATOR ===== */
+        .save-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #f0e1d2;
+            color: #5b3f2b;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        .save-indicator.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .save-indicator.success {
+            background: #2b5c43;
+            color: white;
+        }
+        .save-indicator.success i {
+            animation: checkPop 0.6s ease;
+        }
+        @keyframes checkPop {
+            0% { transform: scale(0); }
+            60% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .save-indicator i {
+            font-size: 1rem;
+        }
+
+        /* ===== TABLE WRAPPER ===== */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 32px;
             background: linear-gradient(145deg, #f5e8da, #ecdac9);
             padding: 0.4rem;
+            box-shadow: inset 0 2px 20px rgba(130, 80, 50, 0.06);
+            animation: tableGlow 10s ease-in-out infinite alternate;
+        }
+        @keyframes tableGlow {
+            0% { box-shadow: inset 0 2px 20px rgba(130, 80, 50, 0.06), 0 0 30px rgba(200, 150, 110, 0.03); }
+            100% { box-shadow: inset 0 2px 20px rgba(130, 80, 50, 0.06), 0 0 60px rgba(200, 150, 110, 0.12); }
         }
 
         table {
@@ -118,6 +211,7 @@
             background: #fffbf5;
             border-radius: 28px;
             overflow: hidden;
+            box-shadow: 0 8px 32px rgba(90, 60, 30, 0.06);
         }
 
         th {
@@ -128,8 +222,9 @@
             text-align: center;
             font-size: 0.82rem;
             border-bottom: 4px solid #b28464;
+            position: relative;
         }
-        th i { margin-right: 8px; }
+        th i { margin-right: 8px; color: #4f2f1d; }
 
         td {
             padding: 0.6rem 0.5rem;
@@ -137,8 +232,11 @@
             vertical-align: middle;
             background: #fcf7ef;
             color: #2b1b10;
+            transition: background 0.3s ease;
         }
-        tr:hover td { background: #faf0e6; }
+        tr:hover td {
+            background: #faf0e6;
+        }
         tr:last-child td { border-bottom: none; }
 
         .col-tanggal {
@@ -165,7 +263,7 @@
             width: 100%;
             font-size: 0.9rem;
             color: #2a1d12;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
             font-family: inherit;
             resize: vertical;
             line-height: 1.5;
@@ -175,13 +273,24 @@
             outline: none;
             border-color: #b28464;
             background: #fffcf5;
-            box-shadow: 0 0 0 6px rgba(180, 120, 80, 0.10);
+            box-shadow: 0 0 0 6px rgba(180, 120, 80, 0.12);
+            transform: scale(1.01);
         }
         .cell-editable:hover {
             background: #fff6ea;
             border-color: #c4a084;
         }
+        .cell-editable.changed {
+            border-color: #2b5c43;
+            background: rgba(43, 92, 67, 0.05);
+            animation: glowChange 1s ease;
+        }
+        @keyframes glowChange {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(43, 92, 67, 0); }
+            50% { box-shadow: 0 0 20px 4px rgba(43, 92, 67, 0.15); }
+        }
 
+        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -191,23 +300,32 @@
             padding: 1rem 2.4rem;
             border-radius: 80px;
             font-weight: 500;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,215,175,0.05);
             display: flex;
             align-items: center;
             gap: 14px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: 0.35s ease;
+            transform: translateY(24px) scale(0.95);
+            transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
             pointer-events: none;
             z-index: 999;
             border-left: 6px solid #f1cfb5;
+            backdrop-filter: blur(8px);
         }
         .toast.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
-        .toast i { font-size: 1.5rem; color: #f1cfb5; }
+        .toast i { font-size: 1.5rem; color: #f1cfb5; animation: toastPop 0.6s ease; }
+        @keyframes toastPop {
+            0% { transform: scale(0) rotate(-20deg); }
+            60% { transform: scale(1.3) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+        .toast.success i { color: #7dcea0; }
+        .toast.error i { color: #f1948a; }
 
+        /* ===== FOOTER ===== */
         .footer-note {
             margin-top: 1.4rem;
             display: flex;
@@ -219,8 +337,45 @@
             padding: 0.6rem 1.8rem;
             border-radius: 60px;
             border: 1px solid rgba(235, 210, 190, 0.2);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
         }
-        .footer-note i { color: #9d7053; margin-right: 6px; }
+        .footer-note:hover {
+            background: rgba(235, 210, 190, 0.5);
+        }
+        .footer-note i {
+            color: #9d7053;
+            margin-right: 6px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .footer-note .status-badge {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: #7a543b;
+        }
+        .footer-note .status-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #b99a7e;
+            transition: 0.3s;
+        }
+        .footer-note .status-badge .dot.saved {
+            background: #2b5c43;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(43, 92, 67, 0.4); }
+            50% { box-shadow: 0 0 12px 4px rgba(43, 92, 67, 0.2); }
+        }
 
         @media (max-width: 700px) {
             .card { padding: 1.2rem; border-radius: 2rem; }
@@ -232,17 +387,18 @@
                 padding: 1.2rem 1.5rem;
             }
             .header-left h1 { font-size: 1.6rem; }
+            .header-left h1::after { display: none; }
             .header-actions { width: 100%; justify-content: flex-start; }
             .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+            .footer-note { flex-direction: column; align-items: start; gap: 8px; }
+            .footer-note .status-badge { margin-left: 0; }
         }
 
-        /* ============================================================ */
-        /* ===== STYLE PDF - SAMA PERSIS DENGAN FILE PDF YANG DIBERIKAN ===== */
-        /* ============================================================ */
+        /* ===== STYLE PDF ===== */
         .pdf-wrapper {
             background: white;
             padding: 30px 35px 25px 35px;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             width: 100%;
             box-sizing: border-box;
             margin: 0 auto;
@@ -271,13 +427,8 @@
             padding: 4px 20px;
             border-radius: 40px;
             display: inline-block;
-            margin-left: auto;
-            margin-right: auto;
-            width: auto;
         }
-        .pdf-wrapper .pdf-date-wrap {
-            text-align: center;
-        }
+        .pdf-wrapper .pdf-date-wrap { text-align: center; }
         .pdf-wrapper .pdf-table {
             width: 100%;
             border-collapse: collapse;
@@ -308,16 +459,12 @@
             font-weight: 700;
             background: #f7e4d4;
             width: 30px;
-            font-size: 10px;
-            color: #5f341e;
         }
         .pdf-wrapper .pdf-table .pdf-hari {
             text-align: center;
             font-weight: 600;
             background: #f0ddcc;
             width: 45px;
-            font-size: 10px;
-            color: #4f2e1b;
         }
         .pdf-wrapper .pdf-footer {
             margin-top: 14px;
@@ -329,21 +476,10 @@
             font-size: 10px;
             color: #5b3f2b;
         }
-        .pdf-wrapper .pdf-footer .pdf-brand {
-            font-weight: 700;
-            color: #3d2417;
-        }
-        .pdf-wrapper .pdf-footer .pdf-brand i {
-            color: #9d7053;
-            margin-right: 4px;
-        }
-        .pdf-wrapper .pdf-footer .pdf-hashtag {
-            color: #7a543b;
-        }
-        .pdf-wrapper .pdf-footer .pdf-hashtag i {
-            color: #9d7053;
-            margin-right: 4px;
-        }
+        .pdf-wrapper .pdf-footer .pdf-brand { font-weight: 700; color: #3d2417; }
+        .pdf-wrapper .pdf-footer .pdf-brand i { color: #9d7053; margin-right: 4px; }
+        .pdf-wrapper .pdf-footer .pdf-hashtag { color: #7a543b; }
+        .pdf-wrapper .pdf-footer .pdf-hashtag i { color: #9d7053; margin-right: 4px; }
         .pdf-wrapper .pdf-footer .pdf-page-info {
             background: #f0e1d2;
             padding: 2px 14px;
@@ -352,20 +488,13 @@
             font-weight: 600;
             color: #5b3f2b;
         }
-        .pdf-wrapper .pdf-footer .pdf-page-info i {
-            margin-right: 4px;
-        }
-        .pdf-container {
-            background: white;
-            padding: 5px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .pdf-container { background: white; padding: 5px; max-width: 1200px; margin: 0 auto; }
     </style>
 </head>
 <body>
 
     <div class="card" id="scheduleCard">
+        <!-- HEADER -->
         <div class="header">
             <div class="header-left">
                 <div>
@@ -374,11 +503,20 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button class="btn btn-save" id="saveBtn"><i class="fas fa-save"></i> Simpan</button>
-                <button class="btn btn-pdf" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                <span class="save-indicator" id="saveIndicator">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="indicatorText">Tersimpan</span>
+                </span>
+                <button class="btn btn-save" id="saveBtn">
+                    <i class="fas fa-save"></i> Simpan
+                </button>
+                <button class="btn btn-pdf" id="exportPdfBtn">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </button>
             </div>
         </div>
 
+        <!-- TABLE -->
         <div class="table-wrapper">
             <table id="scheduleTable">
                 <thead>
@@ -394,17 +532,24 @@
             </table>
         </div>
 
+        <!-- FOOTER -->
         <div class="footer-note">
             <span><i class="fas fa-pen-fancy"></i> Klik sel untuk mengubah</span>
             <span><i class="fas fa-save"></i> Simpan manual setelah perubahan</span>
             <span><i class="fas fa-palette"></i> #PawonMbahGito</span>
+            <span class="status-badge">
+                <span class="dot" id="statusDot"></span>
+                <span id="statusText">Belum disimpan</span>
+            </span>
         </div>
     </div>
 
+    <!-- TOAST -->
     <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Tersimpan</span></div>
 
     <script>
         (function() {
+            // ========== DATA ==========
             const initialData = [
                 { tanggal: "1", hari: "Rabu", instagram: "Reels: Morning Vibes Pawon Mbah Gito (kabut, sawah, suara alam)", tiktok: "POV datang ke Pawon jam buka", shorts: "-" },
                 { tanggal: "2", hari: "Kamis", instagram: "-", tiktok: "Kitchen Serenity - Menu Rawon", shorts: "Menu Prasmanan Terlengkap di Jogja" },
@@ -439,13 +584,26 @@
                 { tanggal: "31", hari: "Jumat", instagram: "-", tiktok: "Kompliasi Juli (Menu, Customer, Barista & Vibes)", shorts: "Best Moments Juli 2026" }
             ];
 
+            // ========== DOM REFS ==========
             const tbody = document.getElementById('tableBody');
+            const saveBtn = document.getElementById('saveBtn');
+            const exportBtn = document.getElementById('exportPdfBtn');
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const saveIndicator = document.getElementById('saveIndicator');
+            const indicatorText = document.getElementById('indicatorText');
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
 
+            let isSaved = false;
+            let saveTimeout = null;
+
+            // ========== RENDER TABLE ==========
             function renderTable(data) {
                 tbody.innerHTML = '';
                 data.forEach((row, index) => {
                     const tr = document.createElement('tr');
-                    tr.style.animation = `rowFadeIn ${0.3 + index * 0.02}s ease forwards`;
+                    tr.style.animation = `rowFadeIn ${0.2 + index * 0.015}s ease forwards`;
                     tr.style.opacity = '0';
 
                     const tdTanggal = document.createElement('td');
@@ -491,16 +649,27 @@
                     tbody.appendChild(tr);
                 });
 
+                // Auto-resize & event listeners
                 document.querySelectorAll('.cell-editable').forEach(ta => {
                     autoResize(ta);
-                    ta.addEventListener('input', function() { autoResize(this); });
+                    ta.addEventListener('input', function() {
+                        autoResize(this);
+                        this.classList.add('changed');
+                        markUnsaved();
+                        // Auto-save setelah 3 detik tidak ada perubahan
+                        clearTimeout(saveTimeout);
+                        saveTimeout = setTimeout(() => {
+                            saveData();
+                        }, 3000);
+                    });
                 });
 
+                // Style untuk animasi row
                 const style = document.createElement('style');
                 style.textContent = `
                     @keyframes rowFadeIn {
-                        from { opacity: 0; transform: translateY(10px); }
-                        to { opacity: 1; transform: translateY(0); }
+                        from { opacity: 0; transform: translateY(12px) scale(0.98); }
+                        to { opacity: 1; transform: translateY(0) scale(1); }
                     }
                 `;
                 document.head.appendChild(style);
@@ -511,6 +680,7 @@
                 el.style.height = el.scrollHeight + 'px';
             }
 
+            // ========== GET DATA ==========
             function getTableData() {
                 const rows = tbody.querySelectorAll('tr');
                 const data = [];
@@ -527,32 +697,76 @@
                 return data;
             }
 
-            function showToast(msg) {
-                const toast = document.getElementById('toast');
-                const toastMsg = document.getElementById('toastMsg');
-                toastMsg.textContent = msg;
-                toast.classList.add('show');
-                clearTimeout(window.toastTimeout);
-                window.toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
-            }
-
-            document.getElementById('saveBtn').addEventListener('click', function() {
+            // ========== SAVE ==========
+            function saveData(showToastMsg = true) {
                 const data = getTableData();
                 try {
                     localStorage.setItem('pawonScheduleData', JSON.stringify(data));
-                    showToast('📋 Jadwal berhasil disimpan!');
+                    isSaved = true;
+                    updateStatusUI(true);
+                    if (showToastMsg) {
+                        showToast('✅ Jadwal berhasil disimpan!', 'success');
+                    }
+                    // Hilangkan class changed
+                    document.querySelectorAll('.cell-editable.changed').forEach(el => {
+                        el.classList.remove('changed');
+                    });
+                    return true;
                 } catch(e) {
-                    showToast('⚠️ Gagal menyimpan data');
+                    showToast('⚠️ Gagal menyimpan data', 'error');
+                    return false;
                 }
-            });
+            }
 
-            // ========== EXPORT PDF - SAMA PERSIS DENGAN FILE PDF ==========
-            document.getElementById('exportPdfBtn').addEventListener('click', function() {
+            function markUnsaved() {
+                isSaved = false;
+                updateStatusUI(false);
+            }
+
+            function updateStatusUI(saved) {
+                const indicator = document.getElementById('saveIndicator');
+                const dot = document.getElementById('statusDot');
+                const text = document.getElementById('statusText');
+
+                if (saved) {
+                    indicator.classList.add('show', 'success');
+                    indicatorText.textContent = 'Tersimpan ✓';
+                    dot.className = 'dot saved';
+                    text.textContent = 'Tersimpan';
+                } else {
+                    indicator.classList.remove('success');
+                    indicatorText.textContent = 'Menyimpan...';
+                    dot.className = 'dot';
+                    text.textContent = 'Belum disimpan';
+                    // Tampilkan indikator dengan status pending
+                    indicator.classList.add('show');
+                }
+            }
+
+            // ========== TOAST ==========
+            function showToast(msg, type = 'success') {
+                toastMsg.textContent = msg;
+                toast.className = 'toast ' + type;
+                toast.classList.add('show');
+                clearTimeout(window.toastTimeout);
+                window.toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            // ========== EXPORT PDF ==========
+            function exportPDF() {
+                // Pastikan data terakhir tersimpan
                 const data = getTableData();
+                
+                // Update data di localStorage
+                try {
+                    localStorage.setItem('pawonScheduleData', JSON.stringify(data));
+                } catch(e) {}
+
                 const now = new Date();
                 const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-                // Bangun tabel HTML untuk PDF
                 let tableRows = '';
                 data.forEach(row => {
                     tableRows += `
@@ -573,7 +787,6 @@
                         <div class="pdf-date-wrap">
                             <div class="pdf-date"><i class="fas fa-calendar-check"></i> ${dateStr}</div>
                         </div>
-
                         <table class="pdf-table">
                             <thead>
                                 <tr>
@@ -586,7 +799,6 @@
                             </thead>
                             <tbody>${tableRows}</tbody>
                         </table>
-
                         <div class="pdf-footer">
                             <div class="pdf-brand"><i class="fas fa-utensils"></i> Pawon Mbah Gito</div>
                             <div class="pdf-hashtag"><i class="fas fa-tag"></i> #PawonMbahGito</div>
@@ -595,7 +807,6 @@
                     </div>
                 `;
 
-                // Container sementara
                 const container = document.createElement('div');
                 container.innerHTML = pdfHTML;
                 container.style.position = 'absolute';
@@ -628,26 +839,52 @@
                     }
                 };
 
-                showToast('⏳ Menyiapkan PDF...');
+                showToast('⏳ Menyiapkan PDF...', 'success');
 
                 html2pdf().set(opt).from(pdfElement).save().then(() => {
                     document.body.removeChild(container);
-                    showToast('📄 PDF berhasil diekspor!');
+                    showToast('📄 PDF berhasil diekspor!', 'success');
                 }).catch((err) => {
                     console.error(err);
                     document.body.removeChild(container);
-                    showToast('⚠️ Gagal ekspor PDF, coba lagi.');
+                    showToast('⚠️ Gagal ekspor PDF, coba lagi.', 'error');
                 });
+            }
+
+            // ========== EVENT LISTENERS ==========
+            saveBtn.addEventListener('click', function() {
+                saveData(true);
             });
 
-            // Load data
+            exportBtn.addEventListener('click', function() {
+                exportPDF();
+            });
+
+            // Auto-save on page unload
+            window.addEventListener('beforeunload', function() {
+                saveData(false);
+            });
+
+            // ========== INIT ==========
             let storedData = null;
             try {
                 const raw = localStorage.getItem('pawonScheduleData');
                 if (raw) storedData = JSON.parse(raw);
             } catch(e) {}
+
             const startData = (storedData && storedData.length === initialData.length) ? storedData : initialData;
             renderTable(startData);
+
+            // Set status awal
+            if (storedData && storedData.length === initialData.length) {
+                isSaved = true;
+                updateStatusUI(true);
+            } else {
+                // Simpan data awal
+                setTimeout(() => {
+                    saveData(false);
+                }, 500);
+            }
         })();
     </script>
 
