@@ -1,3 +1,5 @@
+Saya telah memperbaiki masalah terpotong pada export PDF dengan menggunakan ukuran yang lebih besar dan margin yang tepat agar semua data masuk dengan sempurna.
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -344,15 +346,16 @@
             .btn { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
         }
 
-        /* ============================================================ */
-        /* ===== STYLE KHUSUS UNTUK PDF (SIMPEL & TERTATA) ===== */
-        /* ============================================================ */
+        /* ================================================================ */
+        /* ===== STYLE KHUSUS UNTUK PDF (TIDAK TERPOTONG) ===== */
+        /* ================================================================ */
         .pdf-container {
             background: white;
-            padding: 25px 30px;
+            padding: 20px 25px;
             font-family: 'Inter', -apple-system, sans-serif;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
+            box-sizing: border-box;
         }
         .pdf-container .pdf-header {
             display: flex;
@@ -360,75 +363,89 @@
             align-items: flex-end;
             border-bottom: 3px solid #b28464;
             padding-bottom: 10px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         .pdf-container .pdf-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: #3d2417;
             letter-spacing: -0.02em;
         }
         .pdf-container .pdf-header .pdf-sub {
-            font-size: 13px;
+            font-size: 12px;
             color: #7a543b;
             font-weight: 500;
             margin-top: 2px;
         }
         .pdf-container .pdf-header .pdf-date {
-            font-size: 12px;
+            font-size: 11px;
             color: #6b4f37;
             background: #f0e1d2;
-            padding: 4px 16px;
+            padding: 3px 14px;
             border-radius: 40px;
             font-weight: 600;
+            white-space: nowrap;
         }
         .pdf-container .pdf-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 11px;
+            font-size: 10.5px;
             margin-top: 4px;
+            table-layout: fixed;
         }
         .pdf-container .pdf-table th {
             background: #d9b99b;
             color: #281b10;
             font-weight: 700;
-            padding: 8px 6px;
+            padding: 7px 5px;
             text-align: center;
             border: 1px solid #b99a7e;
-            font-size: 10.5px;
+            font-size: 10px;
             letter-spacing: 0.03em;
+            word-wrap: break-word;
         }
         .pdf-container .pdf-table td {
-            padding: 6px 6px;
+            padding: 5px 5px;
             border: 1px solid #dccbbc;
             vertical-align: middle;
             background: #fcf7ef;
             color: #2b1b10;
-            line-height: 1.4;
-            font-size: 10.5px;
+            line-height: 1.35;
+            font-size: 10px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .pdf-container .pdf-table .pdf-tgl {
             text-align: center;
             font-weight: 700;
             background: #f7e4d4;
-            width: 35px;
-            font-size: 11px;
+            width: 30px;
+            font-size: 10.5px;
         }
         .pdf-container .pdf-table .pdf-hari {
             text-align: center;
             font-weight: 600;
             background: #f0ddcc;
-            width: 55px;
-            font-size: 11px;
+            width: 50px;
+            font-size: 10.5px;
+        }
+        .pdf-container .pdf-table .col-ig {
+            width: 22%;
+        }
+        .pdf-container .pdf-table .col-tt {
+            width: 28%;
+        }
+        .pdf-container .pdf-table .col-yt {
+            width: 18%;
         }
         .pdf-container .pdf-footer {
-            margin-top: 14px;
+            margin-top: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 2px solid #d9b99b;
-            padding-top: 10px;
-            font-size: 11px;
+            padding-top: 8px;
+            font-size: 10.5px;
             color: #5b3f2b;
         }
         .pdf-container .pdf-footer .pdf-brand {
@@ -441,9 +458,9 @@
         }
         .pdf-container .pdf-footer .pdf-page {
             background: #f0e1d2;
-            padding: 2px 14px;
+            padding: 2px 12px;
             border-radius: 40px;
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 600;
         }
     </style>
@@ -646,7 +663,7 @@
             });
 
             // ================================================================
-            // ============= EXPORT PDF SEDERHANA & TERTATA ===================
+            // ============= EXPORT PDF (TIDAK TERPOTONG) =====================
             // ================================================================
             document.getElementById('exportPdfBtn').addEventListener('click', function() {
                 const data = getTableData();
@@ -660,9 +677,9 @@
                         <tr>
                             <td class="pdf-tgl">${row.tanggal}</td>
                             <td class="pdf-hari">${row.hari}</td>
-                            <td>${row.instagram}</td>
-                            <td>${row.tiktok}</td>
-                            <td>${row.shorts}</td>
+                            <td class="col-ig">${row.instagram}</td>
+                            <td class="col-tt">${row.tiktok}</td>
+                            <td class="col-yt">${row.shorts}</td>
                         </tr>
                     `;
                 });
@@ -684,11 +701,11 @@
                         <table class="pdf-table">
                             <thead>
                                 <tr>
-                                    <th style="width:35px;">Tgl</th>
-                                    <th style="width:55px;">Hari</th>
-                                    <th style="min-width:170px;">Instagram (Feed/Reels)</th>
-                                    <th style="min-width:190px;">TikTok (Harian)</th>
-                                    <th style="min-width:140px;">YouTube Shorts</th>
+                                    <th style="width:8%;">Tgl</th>
+                                    <th style="width:12%;">Hari</th>
+                                    <th style="width:28%;">Instagram (Feed/Reels)</th>
+                                    <th style="width:32%;">TikTok (Harian)</th>
+                                    <th style="width:20%;">YouTube Shorts</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -711,29 +728,31 @@
                     </div>
                 `;
 
-                // Buat elemen sementara
+                // Buat elemen sementara dengan ukuran lebar yang cukup
                 const container = document.createElement('div');
                 container.innerHTML = pdfHTML;
                 container.style.position = 'absolute';
                 container.style.left = '-9999px';
                 container.style.top = '0';
-                container.style.width = '1100px';
+                container.style.width = '1300px';
                 container.style.background = 'white';
                 container.style.padding = '10px';
+                container.style.boxSizing = 'border-box';
                 document.body.appendChild(container);
 
                 const pdfElement = container.querySelector('.pdf-container');
 
                 const opt = {
-                    margin:        [0.15, 0.15, 0.15, 0.15],
+                    margin:        [0.2, 0.2, 0.2, 0.2],
                     filename:      'Pawon_Mbah_Gito_Schedule.pdf',
                     image:         { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { 
-                        scale: 2.5, 
+                        scale: 2.8, 
                         letterRendering: true, 
                         useCORS: true, 
                         logging: false,
-                        width: 1100,
+                        width: 1300,
+                        height: pdfElement.scrollHeight + 50,
                     },
                     jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' }
                 };
@@ -763,3 +782,4 @@
 
 </body>
 </html>
+```
